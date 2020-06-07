@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, merge, of } from 'rxjs';
+import { Observable, merge, of, throwError } from 'rxjs';
 import {
   map,
   switchMap,
@@ -8,8 +8,11 @@ import {
   filter,
   toArray,
   share,
+  tap,
+  catchError,
 } from 'rxjs/operators';
 import { HttpParams, HttpClient } from '@angular/common/http';
+import { NotificationsService } from '../notifications/notifications.service';
 
 interface OpenWeatherResonse {
   list: {
@@ -25,7 +28,7 @@ interface OpenWeatherResonse {
 })
 export class ForecastServiceService {
   private url = 'https://api.openweathermap.org/data/2.5/forecast';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private ns: NotificationsService) {}
 
   getcurrentLocation() {
     return new Observable<Coordinates>((observer) => {
@@ -36,7 +39,17 @@ export class ForecastServiceService {
         },
         (err) => observer.error(err)
       );
-    });
+    }).pipe(
+      tap((val) => {
+        this.ns.addSuccess('location ok');
+      }),
+      catchError((error) => {
+        // handle the error
+        this.ns.addError('Failed to get location');
+        // return a new observable
+        return throwError(error);
+      })
+    );
   }
 
   getForecast() {

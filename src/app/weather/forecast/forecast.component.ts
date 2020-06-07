@@ -12,6 +12,6 @@ export class ForecastComponent implements OnInit {
   constructor(private fcs: ForecastServiceService) {}
 
   ngOnInit(): void {
-    // this.forecastData$ = this.fcs.getForecast();
+    this.forecastData$ = this.fcs.getForecast();
   }
 }
