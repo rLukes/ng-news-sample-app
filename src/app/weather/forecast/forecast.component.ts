@@ -10,8 +10,8 @@ export class ForecastComponent implements OnInit {
   constructor(private fcs: ForecastServiceService) {}
 
   ngOnInit(): void {
-    this.fcs.getForecast().subscribe((f) => {
+    /* this.fcs.getForecast().subscribe((f) => {
       console.log(f);
-    });
+    }); */
   }
 }
