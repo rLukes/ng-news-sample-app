@@ -7,6 +7,7 @@ import {
   mergeMap,
   filter,
   toArray,
+  share,
 } from 'rxjs/operators';
 import { HttpParams, HttpClient } from '@angular/common/http';
 
@@ -61,7 +62,8 @@ export class ForecastServiceService {
           temp: val.main.temp,
         };
       }),
-      toArray()
+      toArray(),
+      share()
     );
   }
 }
