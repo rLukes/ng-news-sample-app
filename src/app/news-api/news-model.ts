@@ -1,7 +1,9 @@
 export interface NewsApiResponse {
   totalResults: number;
-  articles: {
-    title: string;
-    url: string;
-  }[];
+  articles: Article[];
+}
+
+export interface Article {
+  title: string;
+  url: string;
 }
