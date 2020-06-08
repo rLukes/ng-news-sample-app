@@ -14,8 +14,8 @@ export class NewsApiService {
   private country = 'no';
 
   private pageInput: Subject<number>;
-  private pageOutput: Observable<Article[]>;
-  private numberOfPages: Subject<number>;
+  pageOutput: Observable<Article[]>;
+  numberOfPages: Subject<number>;
   constructor(private http: HttpClient) {
     this.pageInput = new Subject();
     this.numberOfPages = new Subject();
