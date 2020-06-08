@@ -12,6 +12,8 @@ export class NotificationsService {
 
   constructor() {
     this.messagesInput = new Subject<ICommand>();
+
+    // we do this because when we chain on a pipe it will give us an observable
     this.messagesOutput = this.messagesInput.pipe(
       scan((acc: ICommand[], value: ICommand) => {
         if (value.type === 'clear') {
