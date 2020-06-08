@@ -10,6 +10,7 @@ import {
   share,
   tap,
   catchError,
+  retry,
 } from 'rxjs/operators';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -40,6 +41,7 @@ export class ForecastServiceService {
         (err) => observer.error(err)
       );
     }).pipe(
+      retry(1),
       tap((val) => {
         this.ns.addSuccess('location ok');
       }),
