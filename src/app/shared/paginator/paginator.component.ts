@@ -6,10 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./paginator.component.css'],
 })
 export class PaginatorComponent implements OnInit {
-  @Input() numberOfPages = 5;
-  currentPage = 1;
+  @Input() numberOfPages: number;
   pageOptions: number[];
-  constructor() {
+
+  currentPage = 1;
+  constructor() {}
+
+  ngOnInit(): void {
     this.pageOptions = [
       this.currentPage - 2,
       this.currentPage - 1,
@@ -19,5 +22,7 @@ export class PaginatorComponent implements OnInit {
     ].filter((p) => p >= 1 && p <= this.numberOfPages);
   }
 
-  ngOnInit(): void {}
+  changePage(page: number) {
+    this.currentPage = page;
+  }
 }
